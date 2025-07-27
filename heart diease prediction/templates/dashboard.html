@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+</head>
+<body>
+    <div class="container">
+        <div class="header text-center">
+            <h1><i class="bi bi-speedometer2"></i> Heart Disease Dashboard</h1>
+            <p>Key metrics and insights from the heart disease dataset</p>
+        </div>
+        
+        <ul class="nav nav-pills mb-4 justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link" href="/"><i class="bi bi-calculator"></i> Prediction Tool</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/visualizations"><i class="bi bi-graph-up"></i> Data Insights</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/history"><i class="bi bi-clock-history"></i> History</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/about"><i class="bi bi-info-circle"></i> About</a>
+            </li>
+        </ul>
+        
+        <!-- Key Metrics -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <i class="bi bi-people"></i> Total Records
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="dashboard-value">{{ stats.get('total_records', 0) }}</div>
+                        <div class="dashboard-label">Participants</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <i class="bi bi-heart"></i> Heart Disease Rate
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="dashboard-value">{{ stats.get('positive_rate', 0) * 100 | round(1) }}%</div>
+                        <div class="dashboard-label">Positive Cases</div>
+                        <div class="progress">
+                            <div class="progress-bar bg-danger" role="progressbar" 
+                                 id="positive-rate-bar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <i class="bi bi-gender-ambiguous"></i> Average Age
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="dashboard-value">{{ stats.get('avg_age', 0) | round(1) }}</div>
+                        <div class="dashboard-label">Years</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <i class="bi bi-lungs"></i> Smokers
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="dashboard-value">{{ stats.get('smokers_percentage', 0) | round(1) }}%</div>
+                        <div class="dashboard-label">of Participants</div>
+                        <div class="progress">
+                            <div class="progress-bar bg-danger" role="progressbar" 
+                                 id="smokers-percentage-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Health Metrics -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="content-container">
+                    <h4 class="mb-3"><i class="bi bi-clipboard2-pulse"></i> Health Metrics</h4>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Blood Pressure</h5>
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <p class="mb-0 text-muted">Systolic (avg)</p>
+                                            <h3>{{ stats.get('avg_systolic_bp', 0) | round(1) }} <small class="text-muted">mmHg</small></h3>
+                                        </div>
+                                        <div>
+                                            <p class="mb-0 text-muted">Diastolic (avg)</p>
+                                            <h3>{{ stats.get('avg_diastolic_bp', 0) | round(1) }} <small class="text-muted">mmHg</small></h3>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        <p class="mb-1 small">Systolic BP Classification:</p>
+                                        <div class="progress mb-2" style="height: 10px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" 
+                                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Normal: <120 mmHg"></div>
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 15%;" 
+                                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Elevated: 120-129 mmHg"></div>
+                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 60%;" 
+                                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Hypertension: >130 mmHg"></div>
+                                        </div>
+                                        <div class="d-flex justify-content-between small text-muted">
+                                            <span>Normal</span>
+                                            <span>Elevated</span>
+                                            <span>Hypertension</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Cholesterol</h5>
+                                    <div class="text-center">
+                                        <p class="mb-0 text-muted">Total Cholesterol (avg)</p>
+                                        <h3>{{ stats.get('avg_cholesterol', 0) | round(1) }} <small class="text-muted">mg/dL</small></h3>
+                                    </div>
+                                    <div class="mt-3">
+                                        <p class="mb-1 small">Cholesterol Classification:</p>
+                                        <div class="progress mb-2" style="height: 10px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 40%;" 
+                                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Desirable: <200 mg/dL"></div>
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 20%;" 
+                                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Borderline: 200-239 mg/dL"></div>
+                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 40%;" 
+                                                 data-bs-toggle="tooltip" data-bs-placement="top" title="High: >240 mg/dL"></div>
+                                        </div>
+                                        <div class="d-flex justify-content-between small text-muted">
+                                            <span>Desirable</span>
+                                            <span>Borderline</span>
+                                            <span>High</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Risk Distribution</h5>
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <p class="mb-0 text-muted">Low Risk</p>
+                                            <h3>{{ stats.get('negative_cases', 0) }} <small class="text-muted">cases</small></h3>
+                                        </div>
+                                        <div>
+                                            <p class="mb-0 text-muted">High Risk</p>
+                                            <h3>{{ stats.get('positive_cases', 0) }} <small class="text-muted">cases</small></h3>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        <p class="mb-1 small">Risk Distribution:</p>
+                                        <div class="progress mb-2" style="height: 20px;">
+                                            <div class="progress-bar bg-success" role="progressbar" 
+                                                 id="low-risk-bar"
+                                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Low Risk">
+                                                {{ ((1 - stats.get('positive_rate', 0)) * 100) | round(1) }}%
+                                            </div>
+                                            <div class="progress-bar bg-danger" role="progressbar" 
+                                                 id="high-risk-bar"
+                                                 data-bs-toggle="tooltip" data-bs-placement="top" title="High Risk">
+                                                {{ (stats.get('positive_rate', 0) * 100) | round(1) }}%
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Visualizations -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="viz-container">
+                    <h4 class="mb-3"><i class="bi bi-graph-up"></i> Age Distribution</h4>
+                    <img src="/static/age_distribution.png" alt="Age Distribution" class="viz-img">
+                    <p class="mt-2">Age distribution by heart disease risk shows that older individuals tend to have a higher risk of developing heart disease.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="viz-container">
+                    <h4 class="mb-3"><i class="bi bi-graph-up"></i> Blood Pressure Analysis</h4>
+                    <img src="/static/blood_pressure.png" alt="Blood Pressure Analysis" class="viz-img">
+                    <p class="mt-2">Relationship between systolic and diastolic blood pressure, colored by heart disease risk. Higher blood pressure is associated with increased risk.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="viz-container">
+                    <h4 class="mb-3"><i class="bi bi-graph-up"></i> Smoking Impact</h4>
+                    <img src="/static/smoking_status.png" alt="Smoking Impact" class="viz-img">
+                    <p class="mt-2">Impact of smoking status on heart disease risk. Smoking is a significant risk factor for heart disease.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="viz-container">
+                    <h4 class="mb-3"><i class="bi bi-graph-up"></i> Feature Importance</h4>
+                    <img src="/static/feature_importance.png" alt="Feature Importance" class="viz-img">
+                    <p class="mt-2">Most important features in predicting heart disease risk according to our machine learning model.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Model Performance -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="content-container">
+                    <h4 class="mb-3"><i class="bi bi-cpu"></i> Model Performance</h4>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">ROC Curve</h5>
+                                    <img src="/static/roc_curve.png" alt="ROC Curve" class="viz-img">
+                                    <p class="small text-muted mt-2">The Receiver Operating Characteristic (ROC) curve shows the trade-off between sensitivity and specificity. A higher area under the curve (AUC) indicates better model performance.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Precision-Recall Curve</h5>
+                                    <img src="/static/precision_recall_curve.png" alt="Precision-Recall Curve" class="viz-img">
+                                    <p class="small text-muted mt-2">The Precision-Recall curve shows the trade-off between precision and recall. This is particularly useful for imbalanced datasets like ours where the positive class (heart disease) is less common.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="mt-5 text-center text-muted">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="bi bi-heart-pulse"></i> Heart Disease Prediction</h5>
+                    <p class="small">A machine learning tool to predict 10-year risk of coronary heart disease</p>
+                </div>
+                <div class="col-md-4">
+                    <h5><i class="bi bi-shield-check"></i> Disclaimer</h5>
+                    <p class="small">This tool is for educational purposes only and should not replace medical advice</p>
+                </div>
+                <div class="col-md-4">
+                    <h5><i class="bi bi-link-45deg"></i> Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/about" class="text-muted">About</a></li>
+                        <li><a href="/visualizations" class="text-muted">Data Insights</a></li>
+                        <li><a href="/" class="text-muted">Prediction Tool</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p>&copy; 2023 Heart Disease Prediction Tool</p>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialize tooltips
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Bootstrap tooltips
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+            
+            // Set the width of the smokers percentage progress bar dynamically
+            const smokersPercentageBar = document.getElementById('smokers-percentage-bar');
+            if (smokersPercentageBar) {
+                const smokersPercentage = parseFloat('{{ stats.get("smokers_percentage", 0) | round(1) }}');
+                smokersPercentageBar.style.width = smokersPercentage + '%';
+            }
+        
+        // Set the width of the positive rate progress bar dynamically
+        const positiveRateBar = document.getElementById('positive-rate-bar');
+        if (positiveRateBar) {
+            const positiveRate = parseFloat('{{ stats.get("positive_rate", 0) | round(1) }}');
+            if (!isNaN(positiveRate)) {
+                positiveRateBar.style.width = positiveRate + '%';
+            }
+        }
+        
+        // Set the width of the risk distribution progress bars dynamically
+        const lowRiskBar = document.getElementById('low-risk-bar');
+        const highRiskBar = document.getElementById('high-risk-bar');
+        if (lowRiskBar && highRiskBar) {
+            const lowRiskPercentage = parseFloat('{{ ((1 - stats.get("positive_rate", 0)) * 100) | round(1) }}');
+            const highRiskPercentage = parseFloat('{{ (stats.get("positive_rate", 0) * 100) | round(1) }}');
+            lowRiskBar.style.width = lowRiskPercentage + '%';
+            highRiskBar.style.width = highRiskPercentage + '%';
+        }
+        const successBars = document.querySelectorAll('.progress-bar.bg-success');
+        const dangerBars = document.querySelectorAll('.progress-bar.bg-danger');
+        
+        successBars.forEach(bar => {
+            if (bar.style.width === '') {
+                const content = bar.textContent.trim();
+                if (content.endsWith('%')) {
+                    bar.style.width = content;
+                }
+            }
+        });
+        
+        dangerBars.forEach(bar => {
+            if (bar.style.width === '') {
+                const content = bar.textContent.trim();
+                if (content.endsWith('%')) {
+                    bar.style.width = content;
+                }
+            }
+        });
+    });
+    </script>
+</body>
+</html>

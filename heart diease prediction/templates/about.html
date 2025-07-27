@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction - About</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+</head>
+<body>
+    <div class="container">
+        <div class="header text-center">
+            <h1><i class="bi bi-info-circle"></i> About This Project</h1>
+            <p>Learn more about the Heart Disease Prediction Tool</p>
+        </div>
+        
+        <ul class="nav nav-pills mb-4 justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link" href="/"><i class="bi bi-calculator"></i> Prediction Tool</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/visualizations"><i class="bi bi-graph-up"></i> Data Insights</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/history"><i class="bi bi-clock-history"></i> History</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/about"><i class="bi bi-info-circle"></i> About</a>
+            </li>
+        </ul>
+        
+        <div class="content-container">
+            <div class="row mb-4">
+                <div class="col-lg-8">
+                    <h3 class="mb-4">About the Heart Disease Prediction Tool</h3>
+                    
+                    <div class="card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            <i class="bi bi-heart-pulse"></i> Project Overview
+                        </div>
+                        <div class="card-body">
+                            <p>This heart disease prediction tool uses machine learning to estimate your 10-year risk of developing coronary heart disease (CHD) based on various health parameters. The model was trained on the Framingham Heart Study dataset, which tracked individuals over time to identify risk factors for cardiovascular disease.</p>
+                            <p>By entering your health information, you can get an estimate of your heart disease risk and identify potential areas for lifestyle improvement. The tool also provides educational resources about heart disease risk factors and prevention strategies.</p>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-4 text-center mb-3">
+                                    <div class="feature-card p-3 bg-light rounded">
+                                        <span class="feature-icon"><i class="bi bi-graph-up"></i></span>
+                                        <h5 class="mt-2">Predictive Analytics</h5>
+                                        <p>Using advanced machine learning algorithms to predict heart disease risk</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center mb-3">
+                                    <div class="feature-card p-3 bg-light rounded">
+                                        <span class="feature-icon"><i class="bi bi-clipboard-data"></i></span>
+                                        <h5 class="mt-2">Data-Driven</h5>
+                                        <p>Based on real medical data and established risk factors</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center mb-3">
+                                    <div class="feature-card p-3 bg-light rounded">
+                                        <span class="feature-icon"><i class="bi bi-person-check"></i></span>
+                                        <h5 class="mt-2">Personalized</h5>
+                                        <p>Tailored risk assessment based on your unique health profile</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            <i class="bi bi-database"></i> The Dataset
+                        </div>
+                        <div class="card-body">
+                            <p>The dataset used for this project contains information about various risk factors and whether the individual developed heart disease within a 10-year period. It includes data from over 3,000 participants.</p>
+                            
+                            <h5 class="mt-3">Key Features:</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul>
+                                        <li><strong>Demographic information:</strong> 
+                                            <ul>
+                                                <li>Age</li>
+                                                <li>Sex</li>
+                                                <li>Education level</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Behavioral factors:</strong>
+                                            <ul>
+                                                <li>Smoking status</li>
+                                                <li>Cigarettes per day</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul>
+                                        <li><strong>Medical history:</strong>
+                                            <ul>
+                                                <li>Blood pressure medication</li>
+                                                <li>Previous stroke</li>
+                                                <li>Hypertension</li>
+                                                <li>Diabetes</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Physical measurements:</strong>
+                                            <ul>
+                                                <li>Total cholesterol</li>
+                                                <li>Systolic and diastolic blood pressure</li>
+                                                <li>BMI</li>
+                                                <li>Heart rate</li>
+                                                <li>Glucose levels</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="bi bi-info-circle"></i> The dataset is based on the Framingham Heart Study, one of the longest-running cardiovascular cohort studies that has contributed significantly to our understanding of heart disease risk factors.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            <i class="bi bi-cpu"></i> The Model
+                        </div>
+                        <div class="card-body">
+                            <p>We use a Random Forest Classifier, which is an ensemble learning method that operates by constructing multiple decision trees during training. This approach helps to avoid overfitting and provides robust predictions.</p>
+                            
+                            <h5 class="mt-3">Model Pipeline:</h5>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-title">Data Preprocessing</div>
+                                    <div class="timeline-content">
+                                        <p>The raw data is cleaned and prepared for model training:</p>
+                                        <ul>
+                                            <li>Missing value imputation using median/mode</li>
+                                            <li>Feature scaling to normalize numerical values</li>
+                                            <li>One-hot encoding of categorical variables</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="timeline-item">
+                                    <div class="timeline-title">Model Training</div>
+                                    <div class="timeline-content">
+                                        <p>The Random Forest model is trained with the following characteristics:</p>
+                                        <ul>
+                                            <li>100 decision trees in the ensemble</li>
+                                            <li>Trained on 80% of the dataset</li>
+                                            <li>Optimized for balanced accuracy</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="timeline-item">
+                                    <div class="timeline-title">Model Evaluation</div>
+                                    <div class="timeline-content">
+                                        <p>The model is evaluated on a held-out test set (20% of data):</p>
+                                        <ul>
+                                            <li>ROC-AUC score to measure discrimination ability</li>
+                                            <li>Precision and recall metrics</li>
+                                            <li>Confusion matrix analysis</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="timeline-item">
+                                    <div class="timeline-title">Prediction</div>
+                                    <div class="timeline-content">
+                                        <p>When you enter your health information:</p>
+                                        <ul>
+                                            <li>Data is processed through the same preprocessing pipeline</li>
+                                            <li>Model predicts probability of heart disease</li>
+                                            <li>Risk factors are identified and highlighted</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-warning">
+                        <h5><i class="bi bi-exclamation-triangle"></i> Important Disclaimer</h5>
+                        <p>This tool is for educational and informational purposes only. It is not intended to be a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.</p>
+                        <p>The predictions made by this tool are based on statistical models and may not accurately reflect your individual risk. Many factors that influence heart disease risk are not captured in this model.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            <i class="bi bi-book"></i> References
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <strong>Framingham Heart Study</strong>
+                                    <p class="mb-0 small">A long-term, ongoing cardiovascular study on residents of Framingham, Massachusetts.</p>
+                                    <a href="https://www.framinghamheartstudy.org/" target="_blank" class="small">www.framinghamheartstudy.org</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>American Heart Association</strong>
+                                    <p class="mb-0 small">Leading resource for heart disease prevention and treatment guidelines.</p>
+                                    <a href="https://www.heart.org/" target="_blank" class="small">www.heart.org</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>World Health Organization</strong>
+                                    <p class="mb-0 small">Global information on cardiovascular diseases.</p>
+                                    <a href="https://www.who.int/health-topics/cardiovascular-diseases/" target="_blank" class="small">www.who.int/health-topics/cardiovascular-diseases</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Centers for Disease Control and Prevention</strong>
+                                    <p class="mb-0 small">Heart disease facts and statistics.</p>
+                                    <a href="https://www.cdc.gov/heartdisease/" target="_blank" class="small">www.cdc.gov/heartdisease</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            <i class="bi bi-tools"></i> Technologies Used
+                        </div>
+                        <div class="card-body">
+                            <h6>Backend</h6>
+                            <div class="mb-3">
+                                <span class="badge bg-primary me-1">Python</span>
+                                <span class="badge bg-primary me-1">Flask</span>
+                                <span class="badge bg-primary me-1">Scikit-learn</span>
+                                <span class="badge bg-primary me-1">Pandas</span>
+                                <span class="badge bg-primary me-1">NumPy</span>
+                            </div>
+                            
+                            <h6>Data Visualization</h6>
+                            <div class="mb-3">
+                                <span class="badge bg-success me-1">Matplotlib</span>
+                                <span class="badge bg-success me-1">Seaborn</span>
+                            </div>
+                            
+                            <h6>Frontend</h6>
+                            <div>
+                                <span class="badge bg-secondary me-1">HTML5</span>
+                                <span class="badge bg-secondary me-1">CSS3</span>
+                                <span class="badge bg-secondary me-1">JavaScript</span>
+                                <span class="badge bg-secondary me-1">Bootstrap 5</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            <i class="bi bi-question-circle"></i> How to Use This Tool
+                        </div>
+                        <div class="card-body">
+                            <ol>
+                                <li>Go to the <a href="/">Prediction Tool</a> page</li>
+                                <li>Enter your health information in the form</li>
+                                <li>Click "Predict Heart Disease Risk" to get your assessment</li>
+                                <li>Review your risk factors and prediction result</li>
+                                <li>Explore the <a href="/visualizations">Data Insights</a> page to learn more about heart disease risk factors</li>
+                                <li>Check the <a href="/dashboard">Dashboard</a> for an overview of the dataset statistics</li>
+                            </ol>
+                            <div class="text-center mt-3">
+                                <a href="/" class="btn btn-danger">
+                                    <i class="bi bi-calculator"></i> Try the Prediction Tool
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="mt-5 text-center text-muted">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="bi bi-heart-pulse"></i> Heart Disease Prediction</h5>
+                    <p class="small">A machine learning tool to predict 10-year risk of coronary heart disease</p>
+                </div>
+                <div class="col-md-4">
+                    <h5><i class="bi bi-shield-check"></i> Disclaimer</h5>
+                    <p class="small">This tool is for educational purposes only and should not replace medical advice</p>
+                </div>
+                <div class="col-md-4">
+                    <h5><i class="bi bi-link-45deg"></i> Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/" class="text-muted">Prediction Tool</a></li>
+                        <li><a href="/visualizations" class="text-muted">Data Insights</a></li>
+                        <li><a href="/dashboard" class="text-muted">Dashboard</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p>&copy; 2023 Heart Disease Prediction Tool</p>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

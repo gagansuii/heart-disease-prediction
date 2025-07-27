@@ -1,0 +1,396 @@
+/* 
+ * Heart Disease Prediction Application
+ * Main CSS file for styling the application
+ */
+
+/* Base Styles */
+:root {
+    --primary-color: #dc3545;
+    --primary-dark: #c82333;
+    --primary-light: #f8d7da;
+    --success-color: #28a745;
+    --success-light: #d4edda;
+    --text-color: #333;
+    --text-light: #6c757d;
+    --bg-color: #f8f9fa;
+    --white: #ffffff;
+    --shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Header Styles */
+.header {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+    transform: rotate(30deg);
+    z-index: 1;
+}
+
+.header h1, .header p {
+    position: relative;
+    z-index: 2;
+}
+
+.header h1 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+/* Container Styles */
+.form-container, .viz-container, .content-container {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+    transition: var(--transition);
+}
+
+.form-container:hover, .viz-container:hover, .content-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+}
+
+/* Navigation Styles */
+.nav-pills .nav-link.active {
+    background-color: var(--primary-color);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.nav-pills .nav-link {
+    color: var(--primary-color);
+    margin: 0 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.nav-pills .nav-link:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+/* Button Styles */
+.btn-danger {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    border-radius: 2rem;
+}
+
+.btn-danger:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.btn-danger:active {
+    transform: translateY(-1px);
+}
+
+/* Form Styles */
+.form-control, .form-select {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    transition: var(--transition);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+/* Prediction Result Styles */
+.prediction-result {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    display: none;
+    transition: var(--transition);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.high-risk {
+    background-color: var(--primary-light);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-dark);
+}
+
+.low-risk {
+    background-color: var(--success-light);
+    border: 1px solid var(--success-color);
+    color: var(--success-color);
+}
+
+/* Risk Factor Highlighting */
+.risk-factor-high label {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.risk-factor-high .form-control, .risk-factor-high .form-select {
+    border-color: var(--primary-color);
+    background-color: var(--primary-light);
+}
+
+.risk-factor-moderate label {
+    color: #fd7e14;
+    font-weight: 600;
+}
+
+.risk-factor-moderate .form-control, .risk-factor-moderate .form-select {
+    border-color: #fd7e14;
+    background-color: #fff3cd;
+}
+
+/* Feature Icon Styles */
+.feature-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    display: block;
+    transition: var(--transition);
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.2);
+}
+
+/* Visualization Styles */
+.viz-img {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+.viz-img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.viz-card {
+    height: 100%;
+    transition: var(--transition);
+}
+
+.viz-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.viz-card .card-header {
+    font-weight: 600;
+}
+
+/* Footer Styles */
+footer {
+    margin-top: 3rem;
+    padding: 2rem 0;
+    color: var(--text-light);
+    border-top: 1px solid #dee2e6;
+    text-align: center;
+}
+
+/* Loading Spinner */
+.spinner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.spinner-border {
+    animation: spin 1s linear infinite;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .header {
+        padding: 1.5rem 0;
+    }
+    
+    .form-container, .viz-container, .content-container {
+        padding: 1.5rem;
+    }
+    
+    .nav-pills .nav-link {
+        margin: 0 0.25rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* Dashboard Styles */
+.dashboard-card {
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    height: 100%;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+}
+
+.dashboard-card .card-header {
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-weight: 600;
+    padding: 1rem;
+}
+
+.dashboard-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 1rem 0;
+}
+
+.dashboard-label {
+    font-size: 1rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
+/* Progress Bar Styles */
+.progress {
+    height: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+}
+
+.progress-bar-danger {
+    background-color: var(--primary-color);
+}
+
+.progress-bar-success {
+    background-color: var(--success-color);
+}
+
+/* Tooltip Styles */
+.tooltip {
+    font-size: 0.875rem;
+}
+
+.tooltip-inner {
+    background-color: var(--primary-color);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+}
+
+.bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow::before, 
+.bs-tooltip-top .tooltip-arrow::before {
+    border-top-color: var(--primary-color);
+}
+
+/* Risk Factors List */
+.risk-factors-list {
+    margin-top: 1.5rem;
+}
+
+.risk-factors-list .list-group-item {
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    transition: var(--transition);
+}
+
+.risk-factors-list .list-group-item:hover {
+    transform: translateX(5px);
+}
+
+/* About Page Styles */
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 2rem;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 1.5rem;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.25rem;
+    top: 0.25rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+}
+
+.timeline-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-content {
+    padding-left: 1rem;
+    border-left: 1px solid #dee2e6;
+}

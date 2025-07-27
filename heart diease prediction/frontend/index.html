@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- React and ReactDOM CDN -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- React Components -->
+    <script type="text/babel">
+        // Load all components in a single Babel script to ensure proper order
+        
+        // Navigation.js - Navigation component
+        const Navigation = ({ currentPage, navigateTo }) => {
+            return (
+                <ul className="nav nav-pills mb-4 justify-content-center">
+                    <li className="nav-item">
+                        <a 
+                            className={`nav-link ${currentPage === 'home' ? 'active' : ''}`} 
+                            href="#" 
+                            onClick={(e) => {
+                                e.preventDefault();
+                                navigateTo('home');
+                            }}
+                        >
+                            <i className="bi bi-calculator"></i> Prediction Tool
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <a 
+                            className={`nav-link ${currentPage === 'dashboard' ? 'active' : ''}`} 
+                            href="#" 
+                            onClick={(e) => {
+                                e.preventDefault();
+                                navigateTo('dashboard');
+                            }}
+                        >
+                            <i className="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <a 
+                            className={`nav-link ${currentPage === 'visualizations' ? 'active' : ''}`} 
+                            href="#" 
+                            onClick={(e) => {
+                                e.preventDefault();
+                                navigateTo('visualizations');
+                            }}
+                        >
+                            <i className="bi bi-graph-up"></i> Data Insights
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <a 
+                            className={`nav-link ${currentPage === 'history' ? 'active' : ''}`} 
+                            href="#" 
+                            onClick={(e) => {
+                                e.preventDefault();
+                                navigateTo('history');
+                            }}
+                        >
+                            <i className="bi bi-clock-history"></i> History
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <a 
+                            className={`nav-link ${currentPage === 'about' ? 'active' : ''}`} 
+                            href="#" 
+                            onClick={(e) => {
+                                e.preventDefault();
+                                navigateTo('about');
+                            }}
+                        >
+                            <i className="bi bi-info-circle"></i> About
+                        </a>
+                    </li>
+                </ul>
+            );
+        };
+
+        // Footer.js - Footer component
+        const Footer = () => {
+            return (
+                <footer className="mt-5 text-center text-muted">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-4">
+                                <h5><i className="bi bi-heart-pulse"></i> Heart Disease Prediction</h5>
+                                <p className="small">A machine learning tool to predict 10-year risk of coronary heart disease</p>
+                            </div>
+                            <div className="col-md-4">
+                                <h5><i className="bi bi-shield-check"></i> Disclaimer</h5>
+                                <p className="small">This tool is for educational purposes only and should not replace medical advice</p>
+                            </div>
+                            <div className="col-md-4">
+                                <h5><i className="bi bi-link-45deg"></i> Quick Links</h5>
+                                <ul className="list-unstyled">
+                                    <li><a href="#" className="text-muted">About</a></li>
+                                    <li><a href="#" className="text-muted">Data Insights</a></li>
+                                    <li><a href="#" className="text-muted">Prediction Tool</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <hr />
+                        <p>&copy; 2023 Heart Disease Prediction Tool</p>
+                    </div>
+                </footer>
+            );
+        };
+
+        // Home.js - Home page component (Prediction Tool)
+        const Home = () => {
+            const [formData, setFormData] = React.useState({
+                age: '',
+                sex: '1',
+                education: '1',
+                is_smoking: '0',
+                cigsPerDay: '0',
+                BPMeds: '0',
+                prevalentStroke: '0',
+                prevalentHyp: '0',
+                diabetes: '0',
+                totChol: '',
+                sysBP: '',
+                diaBP: '',
+                BMI: '',
+                heartRate: '',
+                glucose: ''
+            });
+            
+            const [prediction, setPrediction] = React.useState(null);
+            const [loading, setLoading] = React.useState(false);
+            const [error, setError] = React.useState(null);
+            
+            const handleInputChange = (e) => {
+                const { name, value } = e.target;
+                setFormData({
+                    ...formData,
+                    [name]: value
+                });
+                
+                // Handle cigarettes per day field visibility
+                if (name === 'is_smoking' && value === '0') {
+                    setFormData({
+                        ...formData,
+                        is_smoking: '0',
+                        cigsPerDay: '0'
+                    });
+                }
+            };
+            
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                setLoading(true);
+                setError(null);
+                setPrediction(null);
+                
+                try {
+                    // In a real application, this would be an API call
+                    // For now, we'll simulate a prediction
+                    setTimeout(() => {
+                        const randomProbability = Math.random();
+                        setPrediction({
+                            prediction: randomProbability > 0.5 ? 1 : 0,
+                            probability: randomProbability
+                        });
+                        setLoading(false);
+                    }, 1500);
+                } catch (err) {
+                    setError('An error occurred while making the prediction. Please try again.');
+                    console.error(err);
+                } finally {
+                    setLoading(false);
+                }
+            };
+            
+            const resetForm = () => {
+                setFormData({
+                    age: '',
+                    sex: '1',
+                    education: '1',
+                    is_smoking: '0',
+                    cigsPerDay: '0',
+                    BPMeds: '0',
+                    prevalentStroke: '0',
+                    prevalentHyp: '0',
+                    diabetes: '0',
+                    totChol: '',
+                    sysBP: '',
+                    diaBP: '',
+                    BMI: '',
+                    heartRate: '',
+                    glucose: ''
+                });
+                setPrediction(null);
+                setError(null);
+            };
+            
+            return (
+                <div className="row">
+                    <div className="col-lg-8 mx-auto">
+                        <div className="content-container">
+                            <h3 className="mb-4"><i className="bi bi-calculator"></i> Heart Disease Risk Calculator</h3>
+                            
+                            {error && (
+                                <div className="alert alert-danger">
+                                    <i className="bi bi-exclamation-triangle"></i> {error}
+                                </div>
+                            )}
+                            
+                            {!prediction ? (
+                                <form onSubmit={handleSubmit}>
+                                    <div className="row mb-4">
+                                        <div className="col-12">
+                                            <h5><i className="bi bi-person"></i> Personal Information</h5>
+                                            <hr />
+                                        </div>
+                                        
+                                        <div className="col-md-4 mb-3">
+                                            <label htmlFor="age" className="form-label">Age</label>
+                                            <input 
+                                                type="number" 
+                                                className="form-control" 
+                                                id="age" 
+                                                name="age" 
+                                                value={formData.age} 
+                                                onChange={handleInputChange} 
+                                                min="20" 
+                                                max="100" 
+                                                required 
+                                            />
+                                        </div>
+                                        
+                                        <div className="col-md-4 mb-3">
+                                            <label htmlFor="sex" className="form-label">Sex</label>
+                                            <select 
+                                                className="form-select" 
+                                                id="sex" 
+                                                name="sex" 
+                                                value={formData.sex} 
+                                                onChange={handleInputChange} 
+                                                required
+                                            >
+                                                <option value="1">Male</option>
+                                                <option value="0">Female</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div className="col-md-4 mb-3">
+                                            <label htmlFor="education" className="form-label">Education Level</label>
+                                            <select 
+                                                className="form-select" 
+                                                id="education" 
+                                                name="education" 
+                                                value={formData.education} 
+                                                onChange={handleInputChange}
+                                            >
+                                                <option value="1">Some High School</option>
+                                                <option value="2">High School or GED</option>
+                                                <option value="3">Some College or Vocational School</option>
+                                                <option value="4">College</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="row mb-4">
+                                        <div className="col-12">
+                                            <h5><i className="bi bi-clipboard2-pulse"></i> Medical History</h5>
+                                            <hr />
+                                        </div>
+                                        
+                                        <div className="col-md-4 mb-3">
+                                            <label htmlFor="prevalentStroke" className="form-label">Previous Stroke</label>
+                                            <select 
+                                                className="form-select" 
+                                                id="prevalentStroke" 
+                                                name="prevalentStroke" 
+                                                value={formData.prevalentStroke} 
+                                                onChange={handleInputChange}
+                                            >
+                                                <option value="0">No</option>
+                                                <option value="1">Yes</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div className="col-md-4 mb-3">
+                                            <label htmlFor="prevalentHyp" className="form-label">Hypertension</label>
+                                            <select 
+                                                className="form-select" 
+                                                id="prevalentHyp" 
+                                                name="prevalentHyp" 
+                                                value={formData.prevalentHyp} 
+                                                onChange={handleInputChange}
+                                            >
+                                                <option value="0">No</option>
+                                                <option value="1">Yes</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div className="col-md-4 mb-3">
+                                            <label htmlFor="diabetes" className="form-label">Diabetes</label>
+                                            <select 
+                                                className="form-select" 
+                                                id="diabetes" 
+                                                name="diabetes" 
+                                                value={formData.diabetes} 
+                                                onChange={handleInputChange}
+                                            >
+                                                <option value="0">No</option>
+                                                <option value="1">Yes</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div className="col-md-4 mb-3">
+                                            <label htmlFor="BPMeds" className="form-label">BP Medication</label>
+                                            <select 
+                                                className="form-select" 
+                                                id="BPMeds" 
+                                                name="BPMeds" 
+                                                value={formData.BPMeds} 
+                                                onChange={handleInputChange}
+                                            >
+                                                <option value="0">No</option>
+                                                <option value="1">Yes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="row mb-4">
+                                        <div className="col-12">
+                                            <h5><i className="bi bi-heart-pulse"></i> Clinical Measurements</h5>
+                                            <hr />
+                                        </div>
+                                        
+                                        <div className="col-md-4 mb-3">
+                                            <label htmlFor="sysBP" className="form-label">Systolic BP (mmHg)</label>
+                                            <input 
+                                                type="number" 
+                                                className="form-control" 
+                                                id="sysBP" 
+                                                name="sysBP" 
+                                                value={formData.sysBP} 
+                                                onChange={handleInputChange} 
+                                                min="80" 
+                                                max="300" 
+                                                required 
+                                            />
+                                        </div>
+                                        
+                                        <div className="col-md-4 mb-3">
+                                            <label htmlFor="diaBP" className="form-label">Diastolic BP (mmHg)</label>
+                                            <input 
+                                                type="number" 
+                                                className="form-control" 
+                                                id="diaBP" 
+                                                name="diaBP" 
+                                                value={formData.diaBP} 
+                                                onChange={handleInputChange} 
+                                                min="40" 
+                                                max="150" 
+                                                required 
+                                            />
+                                        </div>
+                                        
+                                        <div className="col-md-4 mb-3">
+                                            <label htmlFor="totChol" className="form-label">Total Cholesterol (mg/dL)</label>
+                                            <input 
+                                                type="number" 
+                                                className="form-control" 
+                                                id="totChol" 
+                                                name="totChol" 
+                                                value={formData.totChol} 
+                                                onChange={handleInputChange} 
+                                                min="100" 
+                                                max="600" 
+                                                required 
+                                            />
+                                        </div>
+                                        
+                                        <div className="col-md-4 mb-3">
+                                            <label htmlFor="BMI" className="form-label">BMI (kg/m²)</label>
+                                            <input 
+                                                type="number" 
+                                                className="form-control" 
+                                                id="BMI" 
+                                                name="BMI" 
+                                                value={formData.BMI} 
+                                                onChange={handleInputChange} 
+                                                min="15" 
+                                                max="50" 
+                                                step="0.1" 
+                                                required 
+                                            />
+                                        </div>
+                                        
+                                        <div className="col-md-4 mb-3">
+                                            <label htmlFor="heartRate" className="form-label">Heart Rate (bpm)</label>
+                                            <input 
+                                                type="number" 
+                                                className="form-control" 
+                                                id="heartRate" 
+                                                name="heartRate" 
+                                                value={formData.heartRate} 
+                                                onChange={handleInputChange} 
+                                                min="40" 
+                                                max="200" 
+                                                required 
+                                            />
+                                        </div>
+                                        
+                                        <div className="col-md-4 mb-3">
+                                            <label htmlFor="glucose" className="form-label">Glucose (mg/dL)</label>
+                                            <input 
+                                                type="number" 
+                                                className="form-control" 
+                                                id="glucose" 
+                                                name="glucose" 
+                                                value={formData.glucose} 
+                                                onChange={handleInputChange} 
+                                                min="40" 
+                                                max="400" 
+                                            />
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="row mb-4">
+                                        <div className="col-12">
+                                            <h5><i className="bi bi-lungs"></i> Lifestyle Factors</h5>
+                                            <hr />
+                                        </div>
+                                        
+                                        <div className="col-md-6 mb-3">
+                                            <label htmlFor="is_smoking" className="form-label">Smoking Status</label>
+                                            <select 
+                                                className="form-select" 
+                                                id="is_smoking" 
+                                                name="is_smoking" 
+                                                value={formData.is_smoking} 
+                                                onChange={handleInputChange}
+                                            >
+                                                <option value="0">Non-smoker</option>
+                                                <option value="1">Smoker</option>
+                                            </select>
+                                        </div>
+                                        
+                                        {formData.is_smoking === '1' && (
+                                            <div className="col-md-6 mb-3">
+                                                <label htmlFor="cigsPerDay" className="form-label">Cigarettes Per Day</label>
+                                                <input 
+                                                    type="number" 
+                                                    className="form-control" 
+                                                    id="cigsPerDay" 
+                                                    name="cigsPerDay" 
+                                                    value={formData.cigsPerDay} 
+                                                    onChange={handleInputChange} 
+                                                    min="1" 
+                                                    max="100" 
+                                                    required={formData.is_smoking === '1'} 
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                    
+                                    <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <button type="button" className="btn btn-outline-secondary me-md-2" onClick={resetForm}>
+                                            <i className="bi bi-arrow-counterclockwise"></i> Reset
+                                        </button>
+                                        <button type="submit" className="btn btn-danger" disabled={loading}>
+                                            {loading ? (
+                                                <>
+                                                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                                    Processing...
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <i className="bi bi-heart-pulse"></i> Predict Risk
+                                                </>
+                                            )}
+                                        </button>
+                                    </div>
+                                </form>
+                            ) : (
+                                <div className="text-center">
+                                    <div className={`result-container ${prediction.prediction === 1 ? 'high-risk' : 'low-risk'}`}>
+                                        <h3>
+                                            {prediction.prediction === 1 ? (
+                                                <><i className="bi bi-exclamation-triangle"></i> High Risk</>
+                                            ) : (
+                                                <><i className="bi bi-shield-check"></i> Low Risk</>
+                                            )}
+                                        </h3>
+                                        <p className="lead">
+                                            {prediction.prediction === 1 
+                                                ? "You have a higher risk of developing coronary heart disease in the next 10 years." 
+                                                : "You have a lower risk of developing coronary heart disease in the next 10 years."}
+                                        </p>
+                                        <div className="progress mb-3" style={{ height: '25px' }}>
+                                            <div 
+                                                className={`progress-bar ${prediction.prediction === 1 ? 'bg-danger' : 'bg-success'}`} 
+                                                role="progressbar" 
+                                                style={{ width: `${prediction.probability * 100}%` }} 
+                                                aria-valuenow={prediction.probability * 100} 
+                                                aria-valuemin="0" 
+                                                aria-valuemax="100"
+                                            >
+                                                {(prediction.probability * 100).toFixed(1)}%
+                                            </div>
+                                        </div>
+                                        <p>
+                                            <strong>Risk Probability:</strong> {(prediction.probability * 100).toFixed(1)}%
+                                        </p>
+                                        
+                                        <div className="mt-4">
+                                            <button className="btn btn-outline-secondary me-2" onClick={resetForm}>
+                                                <i className="bi bi-arrow-counterclockwise"></i> Start Over
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="mt-4">
+                                        <h4>What does this mean?</h4>
+                                        <p>
+                                            This prediction is based on the Framingham Heart Study data and indicates your estimated 10-year risk of developing coronary heart disease (CHD).
+                                        </p>
+                                        <div className="alert alert-warning">
+                                            <i className="bi bi-info-circle"></i> This tool is for educational purposes only and should not replace professional medical advice. Please consult with a healthcare provider for proper diagnosis and treatment.
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Dashboard.js - Dashboard page component
+        const Dashboard = () => {
+            // In a real application, this data would come from an API
+            const [stats, setStats] = React.useState({
+                total_records: 4240,
+                positive_rate: 0.15,
+                positive_cases: 636,
+                negative_cases: 3604,
+                avg_age: 49.6,
+                smokers_percentage: 38.5,
+                avg_systolic_bp: 132.4,
+                avg_diastolic_bp: 82.9,
+                avg_cholesterol: 236.8
+            });
+            
+            const [loading, setLoading] = React.useState(false);
+            
+            // In a real application, you would fetch the data from an API
+            React.useEffect(() => {
+                // Simulate API call
+                setLoading(true);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 1000);
+            }, []);
+            
+            if (loading) {
+                return (
+                    <div className="text-center my-5">
+                        <div className="spinner-border text-danger" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                        <p className="mt-3">Loading dashboard data...</p>
+                    </div>
+                );
+            }
+            
+            return (
+                <>
+                    <div className="header text-center">
+                        <h1><i className="bi bi-speedometer2"></i> Heart Disease Dashboard</h1>
+                        <p>Key metrics and insights from the heart disease dataset</p>
+                    </div>
+                    
+                    {/* Key Metrics */}
+                    <div className="row mb-4">
+                        <div className="col-md-3">
+                            <div className="dashboard-card">
+                                <div className="card-header">
+                                    <i className="bi bi-people"></i> Total Records
+                                </div>
+                                <div className="card-body text-center">
+                                    <div className="dashboard-value">{stats.total_records}</div>
+                                    <div className="dashboard-label">Participants</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-3">
+                            <div className="dashboard-card">
+                                <div className="card-header">
+                                    <i className="bi bi-heart"></i> Heart Disease Rate
+                                </div>
+                                <div className="card-body text-center">
+                                    <div className="dashboard-value">{(stats.positive_rate * 100).toFixed(1)}%</div>
+                                    <div className="dashboard-label">Positive Cases</div>
+                                    <div className="progress">
+                                        <div className="progress-bar bg-danger" role="progressbar" 
+                                             style={{ width: `${stats.positive_rate * 100}%` }}></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-3">
+                            <div className="dashboard-card">
+                                <div className="card-header">
+                                    <i className="bi bi-gender-ambiguous"></i> Average Age
+                                </div>
+                                <div className="card-body text-center">
+                                    <div className="dashboard-value">{stats.avg_age.toFixed(1)}</div>
+                                    <div className="dashboard-label">Years</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-3">
+                            <div className="dashboard-card">
+                                <div className="card-header">
+                                    <i className="bi bi-lungs"></i> Smokers
+                                </div>
+                                <div className="card-body text-center">
+                                    <div className="dashboard-value">{stats.smokers_percentage.toFixed(1)}%</div>
+                                    <div className="dashboard-label">of Participants</div>
+                                    <div className="progress">
+                                        <div className="progress-bar bg-danger" role="progressbar" 
+                                             style={{ width: `${stats.smokers_percentage}%` }}></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {/* Health Metrics */}
+                    <div className="row mb-4">
+                        <div className="col-md-12">
+                            <div className="content-container">
+                                <h4 className="mb-3"><i className="bi bi-clipboard2-pulse"></i> Health Metrics</h4>
+                                
+                                <div className="row">
+                                    <div className="col-md-4">
+                                        <div className="card mb-3">
+                                            <div className="card-body">
+                                                <h5 className="card-title">Blood Pressure</h5>
+                                                <div className="d-flex justify-content-between">
+                                                    <div>
+                                                        <p className="mb-0 text-muted">Systolic (avg)</p>
+                                                        <h3>{stats.avg_systolic_bp.toFixed(1)} <small className="text-muted">mmHg</small></h3>
+                                                    </div>
+                                                    <div>
+                                                        <p className="mb-0 text-muted">Diastolic (avg)</p>
+                                                        <h3>{stats.avg_diastolic_bp.toFixed(1)} <small className="text-muted">mmHg</small></h3>
+                                                    </div>
+                                                </div>
+                                                <div className="mt-3">
+                                                    <p className="mb-1 small">Systolic BP Classification:</p>
+                                                    <div className="progress mb-2" style={{ height: '10px' }}>
+                                                        <div className="progress-bar bg-success" role="progressbar" style={{ width: '25%' }} 
+                                                             title="Normal: <120 mmHg"></div>
+                                                        <div className="progress-bar bg-warning" role="progressbar" style={{ width: '15%' }} 
+                                                             title="Elevated: 120-129 mmHg"></div>
+                                                        <div className="progress-bar bg-danger" role="progressbar" style={{ width: '60%' }} 
+                                                             title="Hypertension: >130 mmHg"></div>
+                                                    </div>
+                                                    <div className="d-flex justify-content-between small text-muted">
+                                                        <span>Normal</span>
+                                                        <span>Elevated</span>
+                                                        <span>Hypertension</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="col-md-4">
+                                        <div className="card mb-3">
+                                            <div className="card-body">
+                                                <h5 className="card-title">Cholesterol</h5>
+                                                <div className="text-center">
+                                                    <p className="mb-0 text-muted">Total Cholesterol (avg)</p>
+                                                    <h3>{stats.avg_cholesterol.toFixed(1)} <small className="text-muted">mg/dL</small></h3>
+                                                </div>
+                                                <div className="mt-3">
+                                                    <p className="mb-1 small">Cholesterol Classification:</p>
+                                                    <div className="progress mb-2" style={{ height: '10px' }}>
+                                                        <div className="progress-bar bg-success" role="progressbar" style={{ width: '40%' }} 
+                                                             title="Desirable: <200 mg/dL"></div>
+                                                        <div className="progress-bar bg-warning" role="progressbar" style={{ width: '20%' }} 
+                                                             title="Borderline: 200-239 mg/dL"></div>
+                                                        <div className="progress-bar bg-danger" role="progressbar" style={{ width: '40%' }} 
+                                                             title="High: >240 mg/dL"></div>
+                                                    </div>
+                                                    <div className="d-flex justify-content-between small text-muted">
+                                                        <span>Desirable</span>
+                                                        <span>Borderline</span>
+                                                        <span>High</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="col-md-4">
+                                        <div className="card mb-3">
+                                            <div className="card-body">
+                                                <h5 className="card-title">Risk Distribution</h5>
+                                                <div className="d-flex justify-content-between">
+                                                    <div>
+                                                        <p className="mb-0 text-muted">Low Risk</p>
+                                                        <h3>{stats.negative_cases} <small className="text-muted">cases</small></h3>
+                                                    </div>
+                                                    <div>
+                                                        <p className="mb-0 text-muted">High Risk</p>
+                                                        <h3>{stats.positive_cases} <small className="text-muted">cases</small></h3>
+                                                    </div>
+                                                </div>
+                                                <div className="mt-3">
+                                                    <p className="mb-1 small">Risk Distribution:</p>
+                                                    <div className="progress mb-2" style={{ height: '20px' }}>
+                                                        <div className="progress-bar bg-success" role="progressbar" 
+                                                             style={{ width: `${((1 - stats.positive_rate) * 100).toFixed(1)}%` }} 
+                                                             title="Low Risk">
+                                                            {((1 - stats.positive_rate) * 100).toFixed(1)}%
+                                                        </div>
+                                                        <div className="progress-bar bg-danger" role="progressbar" 
+                                                             style={{ width: `${(stats.positive_rate * 100).toFixed(1)}%` }} 
+                                                             title="High Risk">
+                                                            {(stats.positive_rate * 100).toFixed(1)}%
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            );
+        };
+
+        // Visualizations.js - Visualizations page component
+        const Visualizations = () => {
+            return (
+                <>
+                    <div className="header text-center">
+                        <h1><i className="bi bi-graph-up"></i> Data Insights</h1>
+                        <p>Visual exploration of heart disease risk factors and patterns</p>
+                    </div>
+                    
+                    <div className="content-container mb-4">
+                        <h3 className="mb-3"><i className="bi bi-info-circle"></i> Understanding the Visualizations</h3>
+                        <p>
+                            These visualizations are based on the Framingham Heart Study dataset, which is a long-term ongoing cardiovascular study of residents of Framingham, Massachusetts.
+                            The visualizations help to understand the relationships between various risk factors and the development of coronary heart disease (CHD).
+                        </p>
+                        <div className="alert alert-info">
+                            <i className="bi bi-lightbulb"></i> <strong>Tip:</strong> Click on the visualization sections to explore interactive features and hover over data points for more details.
+                        </div>
+                    </div>
+                    
+                    <div className="row mb-4">
+                        <div className="col-md-6">
+                            <div className="viz-container">
+                                <h4 className="mb-3"><i className="bi bi-bar-chart"></i> Age Distribution by Heart Disease Risk</h4>
+                                <div className="viz-img bg-light p-5 text-center">
+                                    <i className="bi bi-bar-chart-fill text-danger" style={{ fontSize: '5rem' }}></i>
+                                    <p className="mt-3">Age Distribution Visualization</p>
+                                </div>
+                                <div className="mt-3">
+                                    <h5>Key Insights:</h5>
+                                    <ul>
+                                        <li>Risk of heart disease increases significantly with age</li>
+                                        <li>The highest risk group is between 55-70 years old</li>
+                                        <li>Men tend to develop heart disease at an earlier age than women</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="viz-container">
+                                <h4 className="mb-3"><i className="bi bi-heart-pulse"></i> Blood Pressure and Heart Disease</h4>
+                                <div className="viz-img bg-light p-5 text-center">
+                                    <i className="bi bi-graph-up-arrow text-danger" style={{ fontSize: '5rem' }}></i>
+                                    <p className="mt-3">Blood Pressure Visualization</p>
+                                </div>
+                                <div className="mt-3">
+                                    <h5>Key Insights:</h5>
+                                    <ul>
+                                        <li>Higher systolic and diastolic blood pressure correlate with increased heart disease risk</li>
+                                        <li>Systolic BP above 140 mmHg shows a strong association with heart disease</li>
+                                        <li>The combination of high systolic and diastolic BP presents the highest risk</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            );
+        };
+
+        // History.js - History page component
+        const History = () => {
+            // In a real application, this data would come from an API
+            const [history, setHistory] = React.useState([
+                {
+                    id: 1,
+                    timestamp: "2023-11-15 14:32:45",
+                    input_data: {
+                        age: 45,
+                        sex: 1,
+                        education: 3,
+                        is_smoking: 1,
+                        cigsPerDay: 10,
+                        BPMeds: 0,
+                        prevalentStroke: 0,
+                        prevalentHyp: 1,
+                        diabetes: 0,
+                        totChol: 210,
+                        sysBP: 140,
+                        diaBP: 90,
+                        BMI: 28.5,
+                        heartRate: 75,
+                        glucose: 95
+                    },
+                    prediction: 1,
+                    probability: 0.78
+                },
+                {
+                    id: 2,
+                    timestamp: "2023-11-14 09:15:22",
+                    input_data: {
+                        age: 38,
+                        sex: 0,
+                        education: 4,
+                        is_smoking: 0,
+                        cigsPerDay: 0,
+                        BPMeds: 0,
+                        prevalentStroke: 0,
+                        prevalentHyp: 0,
+                        diabetes: 0,
+                        totChol: 185,
+                        sysBP: 120,
+                        diaBP: 80,
+                        BMI: 24.2,
+                        heartRate: 68,
+                        glucose: 85
+                    },
+                    prediction: 0,
+                    probability: 0.15
+                },
+                {
+                    id: 3,
+                    timestamp: "2023-11-13 16:45:10",
+                    input_data: {
+                        age: 62,
+                        sex: 1,
+                        education: 2,
+                        is_smoking: 1,
+                        cigsPerDay: 20,
+                        BPMeds: 1,
+                        prevalentStroke: 0,
+                        prevalentHyp: 1,
+                        diabetes: 1,
+                        totChol: 245,
+                        sysBP: 160,
+                        diaBP: 95,
+                        BMI: 31.8,
+                        heartRate: 82,
+                        glucose: 130
+                    },
+                    prediction: 1,
+                    probability: 0.92
+                }
+            ]);
+            
+            const [loading, setLoading] = React.useState(false);
+            const [error, setError] = React.useState(null);
+            const [selectedRecord, setSelectedRecord] = React.useState(null);
+            
+            // In a real application, you would fetch the data from an API
+            React.useEffect(() => {
+                // Simulate API call
+                setLoading(true);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 1000);
+            }, []);
+            
+            const clearHistory = () => {
+                // In a real application, this would make an API call to clear the history
+                setHistory([]);
+            };
+            
+            const viewRecordDetails = (record) => {
+                setSelectedRecord(record);
+                // In a real application, you would show a modal here
+                alert(`Viewing details for record from ${record.timestamp}`);
+            };
+            
+            // Helper function to get education level text
+            const getEducationLevel = (level) => {
+                const educationLevels = {
+                    '1': 'Some High School',
+                    '2': 'High School or GED',
+                    '3': 'Some College or Vocational School',
+                    '4': 'College'
+                };
+                return level ? educationLevels[level] : 'Not specified';
+            };
+            
+            if (loading) {
+                return (
+                    <div className="text-center my-5">
+                        <div className="spinner-border text-danger" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                        <p className="mt-3">Loading prediction history...</p>
+                    </div>
+                );
+            }
+            
+            return (
+                <>
+                    <div className="header text-center">
+                        <h1><i className="bi bi-clock-history"></i> Prediction History</h1>
+                        <p>Record of previous heart disease risk predictions</p>
+                    </div>
+                    
+                    <div className="content-container">
+                        <div className="d-flex justify-content-between align-items-center mb-4">
+                            <h3><i className="bi bi-list-check"></i> Prediction Records</h3>
+                            <div>
+                                <button 
+                                    className="btn btn-outline-danger" 
+                                    onClick={clearHistory}
+                                    disabled={history.length === 0}
+                                >
+                                    <i className="bi bi-trash"></i> Clear History
+                                </button>
+                            </div>
+                        </div>
+                        
+                        {error && (
+                            <div className="alert alert-danger">
+                                <i className="bi bi-exclamation-triangle"></i> Error: {error}
+                            </div>
+                        )}
+                        
+                        {history.length > 0 ? (
+                            <div className="table-responsive">
+                                <table className="table table-hover">
+                                    <thead className="table-danger">
+                                        <tr>
+                                            <th>Date & Time</th>
+                                            <th>Age</th>
+                                            <th>Sex</th>
+                                            <th>Key Risk Factors</th>
+                                            <th>Prediction</th>
+                                            <th>Probability</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {history.map(record => (
+                                            <tr key={record.id}>
+                                                <td>{record.timestamp}</td>
+                                                <td>{record.input_data.age}</td>
+                                                <td>{record.input_data.sex === 1 ? "Male" : "Female"}</td>
+                                                <td>
+                                                    <ul className="list-unstyled mb-0">
+                                                        {record.input_data.is_smoking === 1 && (
+                                                            <li><span className="badge bg-danger">Smoker</span></li>
+                                                        )}
+                                                        {record.input_data.prevalentHyp === 1 && (
+                                                            <li><span className="badge bg-danger">Hypertension</span></li>
+                                                        )}
+                                                        {record.input_data.diabetes === 1 && (
+                                                            <li><span className="badge bg-danger">Diabetes</span></li>
+                                                        )}
+                                                        {record.input_data.prevalentStroke === 1 && (
+                                                            <li><span className="badge bg-danger">Previous Stroke</span></li>
+                                                        )}
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    {record.prediction === 1 ? (
+                                                        <span className="badge bg-danger">High Risk</span>
+                                                    ) : (
+                                                        <span className="badge bg-success">Low Risk</span>
+                                                    )}
+                                                </td>
+                                                <td>
+                                                    <div className="progress" style={{ height: '20px' }}>
+                                                        <div 
+                                                            className={`progress-bar ${record.prediction === 1 ? 'bg-danger' : 'bg-success'}`} 
+                                                            role="progressbar" 
+                                                            style={{ width: `${record.probability * 100}%` }} 
+                                                            aria-valuenow={record.probability * 100} 
+                                                            aria-valuemin="0" 
+                                                            aria-valuemax="100"
+                                                        >
+                                                            {(record.probability * 100).toFixed(1)}%
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <button 
+                                                        className="btn btn-sm btn-outline-primary" 
+                                                        onClick={() => viewRecordDetails(record)}
+                                                    >
+                                                        <i className="bi bi-eye"></i> View
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        ) : (
+                            <div>
+                                <div className="alert alert-info">
+                                    <i className="bi bi-info-circle"></i> No prediction history found. Make a prediction to see it here.
+                                </div>
+                                <div className="text-center mt-4">
+                                    <button 
+                                        className="btn btn-danger"
+                                        onClick={() => window.location.href = '/'}
+                                    >
+                                        <i className="bi bi-calculator"></i> Make a Prediction
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </>
+            );
+        };
+
+        // About.js - About page component
+        const About = () => {
+            return (
+                <>
+                    <div className="header text-center">
+                        <h1><i className="bi bi-info-circle"></i> About This Project</h1>
+                        <p>Understanding the heart disease prediction tool and its development</p>
+                    </div>
+                    
+                    <div className="row mb-4">
+                        <div className="col-md-8">
+                            <div className="content-container">
+                                <h3 className="mb-3">Project Overview</h3>
+                                <p>
+                                    The Heart Disease Prediction Tool is a machine learning-based application designed to estimate an individual's 10-year risk of developing coronary heart disease (CHD).
+                                    The prediction model is trained on data from the Framingham Heart Study, a landmark longitudinal study that has contributed significantly to our understanding of cardiovascular disease.
+                                </p>
+                                <p>
+                                    This tool is intended for educational purposes to help individuals understand the various risk factors associated with heart disease and how they might impact overall cardiovascular health.
+                                    It should not be used as a substitute for professional medical advice, diagnosis, or treatment.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div className="col-md-4">
+                            <div className="content-container">
+                                <h3 className="mb-3">Key Features</h3>
+                                <ul className="list-group list-group-flush">
+                                    <li className="list-group-item">
+                                        <i className="bi bi-calculator text-danger me-2"></i>
+                                        <strong>Risk Prediction:</strong> Calculate your 10-year heart disease risk
+                                    </li>
+                                    <li className="list-group-item">
+                                        <i className="bi bi-speedometer2 text-danger me-2"></i>
+                                        <strong>Dashboard:</strong> View key metrics and statistics
+                                    </li>
+                                    <li className="list-group-item">
+                                        <i className="bi bi-graph-up text-danger me-2"></i>
+                                        <strong>Data Insights:</strong> Explore visualizations of risk factors
+                                    </li>
+                                    <li className="list-group-item">
+                                        <i className="bi bi-clock-history text-danger me-2"></i>
+                                        <strong>History:</strong> Track your previous predictions
+                                    </li>
+                                    <li className="list-group-item">
+                                        <i className="bi bi-shield-check text-danger me-2"></i>
+                                        <strong>Privacy:</strong> All data is processed locally
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            );
+        };
+
+        // App.js - Main application component
+        const App = () => {
+            const [currentPage, setCurrentPage] = React.useState('home');
+
+            // Function to handle navigation
+            const navigateTo = (page) => {
+                setCurrentPage(page);
+            };
+
+            // Render the appropriate page based on currentPage state
+            const renderPage = () => {
+                switch (currentPage) {
+                    case 'home':
+                        return <Home />;
+                    case 'dashboard':
+                        return <Dashboard />;
+                    case 'visualizations':
+                        return <Visualizations />;
+                    case 'history':
+                        return <History />;
+                    case 'about':
+                        return <About />;
+                    default:
+                        return <Home />;
+                }
+            };
+
+            return (
+                <div className="container">
+                    <div className="header text-center">
+                        <h1><i className="bi bi-heart-pulse"></i> Heart Disease Prediction</h1>
+                        <p>Predict your 10-year risk of coronary heart disease (CHD)</p>
+                    </div>
+                    
+                    <Navigation currentPage={currentPage} navigateTo={navigateTo} />
+                    
+                    {renderPage()}
+                    
+                    <Footer />
+                </div>
+            );
+        };
+
+        // Render the App component
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+</html>

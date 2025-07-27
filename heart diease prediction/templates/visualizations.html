@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction - Data Insights</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+</head>
+<body>
+    <div class="container">
+        <div class="header text-center">
+            <h1><i class="bi bi-graph-up"></i> Heart Disease Data Insights</h1>
+            <p>Visualizations and analysis of heart disease risk factors</p>
+        </div>
+        
+        <ul class="nav nav-pills mb-4 justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link" href="/"><i class="bi bi-calculator"></i> Prediction Tool</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/visualizations"><i class="bi bi-graph-up"></i> Data Insights</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/history"><i class="bi bi-clock-history"></i> History</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/about"><i class="bi bi-info-circle"></i> About</a>
+            </li>
+        </ul>
+        
+        <!-- Introduction -->
+        <div class="content-container mb-4">
+            <div class="row">
+                <div class="col-md-8">
+                    <h3 class="mb-3">Understanding Heart Disease Risk Factors</h3>
+                    <p>Heart disease remains one of the leading causes of death worldwide. Understanding the risk factors and their relationships can help in early detection and prevention.</p>
+                    <p>The visualizations below provide insights into how different factors contribute to heart disease risk based on our dataset of over 3,000 individuals.</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="p-3 bg-light rounded">
+                        <span class="feature-icon"><i class="bi bi-heart-pulse"></i></span>
+                        <h5>Data-Driven Insights</h5>
+                        <p>Explore the relationships between various health metrics and heart disease risk</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Demographic Factors -->
+        <div class="viz-container mb-4">
+            <h3 class="mb-4"><i class="bi bi-people"></i> Demographic Factors</h3>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="viz-card card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            Age Distribution by Heart Disease Risk
+                        </div>
+                        <div class="card-body text-center">
+                            <img src="/static/age_distribution.png" alt="Age Distribution" class="viz-img">
+                            <div class="mt-3">
+                                <h5>Key Findings:</h5>
+                                <ul class="text-start">
+                                    <li>Heart disease risk increases significantly with age</li>
+                                    <li>The risk begins to rise notably after age 50</li>
+                                    <li>Peak risk occurs in the 60-70 age range</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="viz-card card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            Age vs. Cholesterol by Heart Disease Risk
+                        </div>
+                        <div class="card-body text-center">
+                            <img src="/static/age_vs_cholesterol.png" alt="Age vs Cholesterol" class="viz-img">
+                            <div class="mt-3">
+                                <h5>Key Findings:</h5>
+                                <ul class="text-start">
+                                    <li>Both age and cholesterol levels contribute to heart disease risk</li>
+                                    <li>High cholesterol (>240 mg/dL) is a significant risk factor at any age</li>
+                                    <li>Older individuals with high cholesterol have the highest risk</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Clinical Measurements -->
+        <div class="viz-container mb-4">
+            <h3 class="mb-4"><i class="bi bi-clipboard2-pulse"></i> Clinical Measurements</h3>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="viz-card card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            Blood Pressure and Heart Disease
+                        </div>
+                        <div class="card-body text-center">
+                            <img src="/static/blood_pressure.png" alt="Blood Pressure" class="viz-img">
+                            <div class="mt-3">
+                                <h5>Key Findings:</h5>
+                                <ul class="text-start">
+                                    <li>Higher blood pressure correlates with increased heart disease risk</li>
+                                    <li>Systolic BP above 140 mmHg is a significant risk factor</li>
+                                    <li>Diastolic BP above 90 mmHg is also associated with higher risk</li>
+                                    <li>Many individuals with heart disease have hypertension</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="viz-card card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            BMI Distribution by Heart Disease Risk
+                        </div>
+                        <div class="card-body text-center">
+                            <img src="/static/bmi_distribution.png" alt="BMI Distribution" class="viz-img">
+                            <div class="mt-3">
+                                <h5>Key Findings:</h5>
+                                <ul class="text-start">
+                                    <li>Higher BMI is associated with increased heart disease risk</li>
+                                    <li>BMI over 30 (obese) shows significantly higher risk</li>
+                                    <li>Even overweight individuals (BMI 25-30) show elevated risk</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Lifestyle and Medical History -->
+        <div class="viz-container mb-4">
+            <h3 class="mb-4"><i class="bi bi-activity"></i> Lifestyle & Medical History</h3>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="viz-card card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            Smoking Status and Heart Disease
+                        </div>
+                        <div class="card-body text-center">
+                            <img src="/static/smoking_status.png" alt="Smoking Status" class="viz-img">
+                            <div class="mt-3">
+                                <h5>Key Findings:</h5>
+                                <ul class="text-start">
+                                    <li>Smokers have a significantly higher risk of heart disease</li>
+                                    <li>The percentage of heart disease cases is notably higher among smokers</li>
+                                    <li>Smoking is one of the most significant modifiable risk factors</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="viz-card card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            Diabetes and Heart Disease
+                        </div>
+                        <div class="card-body text-center">
+                            <img src="/static/diabetes_heart_disease.png" alt="Diabetes and Heart Disease" class="viz-img">
+                            <div class="mt-3">
+                                <h5>Key Findings:</h5>
+                                <ul class="text-start">
+                                    <li>Diabetes significantly increases heart disease risk</li>
+                                    <li>Individuals with diabetes have approximately twice the risk</li>
+                                    <li>Diabetes and heart disease share many common risk factors</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Model Insights -->
+        <div class="viz-container mb-4">
+            <h3 class="mb-4"><i class="bi bi-cpu"></i> Model Insights</h3>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="viz-card card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            Feature Importance
+                        </div>
+                        <div class="card-body text-center">
+                            <img src="/static/feature_importance.png" alt="Feature Importance" class="viz-img">
+                            <div class="mt-3">
+                                <h5>Key Findings:</h5>
+                                <ul class="text-start">
+                                    <li>Age is the most important predictor of heart disease risk</li>
+                                    <li>Blood pressure measurements are highly significant</li>
+                                    <li>Cholesterol levels play a major role in risk assessment</li>
+                                    <li>Smoking-related features are important predictors</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="viz-card card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            Correlation Heatmap
+                        </div>
+                        <div class="card-body text-center">
+                            <img src="/static/correlation_heatmap.png" alt="Correlation Heatmap" class="viz-img">
+                            <div class="mt-3">
+                                <h5>Key Findings:</h5>
+                                <ul class="text-start">
+                                    <li>Strong correlation between systolic and diastolic blood pressure</li>
+                                    <li>Age correlates with several risk factors</li>
+                                    <li>Smoking status and cigarettes per day are highly correlated</li>
+                                    <li>Several risk factors show moderate correlation with heart disease</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Model Performance -->
+        <div class="viz-container mb-4">
+            <h3 class="mb-4"><i class="bi bi-graph-up"></i> Model Performance</h3>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="viz-card card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            ROC Curve
+                        </div>
+                        <div class="card-body text-center">
+                            <img src="/static/roc_curve.png" alt="ROC Curve" class="viz-img">
+                            <div class="mt-3">
+                                <p>The Receiver Operating Characteristic (ROC) curve shows the trade-off between sensitivity (true positive rate) and specificity (1 - false positive rate). The area under the curve (AUC) measures the model's ability to distinguish between classes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="viz-card card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            Precision-Recall Curve
+                        </div>
+                        <div class="card-body text-center">
+                            <img src="/static/precision_recall_curve.png" alt="Precision-Recall Curve" class="viz-img">
+                            <div class="mt-3">
+                                <p>The Precision-Recall curve shows the trade-off between precision (positive predictive value) and recall (sensitivity). This is particularly useful for imbalanced datasets where the positive class (heart disease) is less common.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Conclusions -->
+        <div class="content-container mb-4">
+            <h3 class="mb-3"><i class="bi bi-check2-circle"></i> Key Takeaways</h3>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-header bg-danger text-white">
+                            Major Risk Factors
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li><strong>Age:</strong> Risk increases significantly with age, especially after 50</li>
+                                <li><strong>Blood Pressure:</strong> Hypertension is a major risk factor</li>
+                                <li><strong>Smoking:</strong> Significantly increases heart disease risk</li>
+                                <li><strong>Cholesterol:</strong> High levels contribute to heart disease</li>
+                                <li><strong>Diabetes:</strong> Approximately doubles the risk of heart disease</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-header bg-danger text-white">
+                            Preventive Measures
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li><strong>Quit Smoking:</strong> One of the most effective ways to reduce risk</li>
+                                <li><strong>Control Blood Pressure:</strong> Through medication and lifestyle changes</li>
+                                <li><strong>Manage Cholesterol:</strong> Through diet, exercise, and medication if needed</li>
+                                <li><strong>Maintain Healthy Weight:</strong> Aim for a BMI between 18.5 and 24.9</li>
+                                <li><strong>Regular Screening:</strong> Especially important for those with multiple risk factors</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="alert alert-warning mt-3">
+                <i class="bi bi-exclamation-triangle"></i> <strong>Disclaimer:</strong> These insights are based on statistical analysis of our dataset and should not replace professional medical advice. Always consult with a healthcare provider for personalized guidance.
+            </div>
+        </div>
+    </div>
+    
+    <footer class="mt-5 text-center text-muted">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="bi bi-heart-pulse"></i> Heart Disease Prediction</h5>
+                    <p class="small">A machine learning tool to predict 10-year risk of coronary heart disease</p>
+                </div>
+                <div class="col-md-4">
+                    <h5><i class="bi bi-shield-check"></i> Disclaimer</h5>
+                    <p class="small">This tool is for educational purposes only and should not replace medical advice</p>
+                </div>
+                <div class="col-md-4">
+                    <h5><i class="bi bi-link-45deg"></i> Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/about" class="text-muted">About</a></li>
+                        <li><a href="/dashboard" class="text-muted">Dashboard</a></li>
+                        <li><a href="/" class="text-muted">Prediction Tool</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p>&copy; 2023 Heart Disease Prediction Tool</p>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
